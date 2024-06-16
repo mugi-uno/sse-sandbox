@@ -9,9 +9,6 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: deno
 
     permissions:
       id-token: write # Needed for auth with Deno Deploy
@@ -34,3 +31,4 @@ jobs:
         with:
           project: "mugi-uno-sse-sandbox"
           entrypoint: "main.ts"
+          root: "./deno"
