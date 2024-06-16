@@ -25,9 +25,5 @@ export const handler = (
     }
   }, 100);
 
-  return sse.asResponse({
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
+  return sse.asResponse();
 };
