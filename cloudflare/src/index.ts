@@ -13,10 +13,12 @@ export default {
       writer.write(encoder.encode(`data: ${chunk}\n\n`));
 
       if (chunks.length === 0) {
+        writer.write(encoder.encode(`event: close\n`));
+        writer.write(encoder.encode(`data:\n\n`));
         clearInterval(intervalId);
       }
     }, 100);
 
-    return new Response(readable, { headers: { 'Content-Type': 'text/event-stream' } });
+    return new Response(readable, { headers: { 'Content-Type': 'text/event-stream', 'Access-Control-Allow-Origin': '*' } });
   },
 } satisfies ExportedHandler<Env>;
