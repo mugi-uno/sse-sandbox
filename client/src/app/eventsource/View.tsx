@@ -2,16 +2,18 @@
 
 import { useRef, useState } from "react";
 
-export default function CloudflarePage() {
+type Props = {
+  url: string;
+};
+
+export const View = ({ url }: Props) => {
   const [text, setText] = useState("");
   const eventSourceRef = useRef<EventSource | null>(null);
 
   const handleClick = () => {
     if (eventSourceRef.current) return;
 
-    const eventSource = new EventSource(
-      "https://sse-sandbox.mugi-uno.workers.dev/"
-    );
+    const eventSource = new EventSource(url);
 
     eventSourceRef.current = eventSource;
 
@@ -30,10 +32,9 @@ export default function CloudflarePage() {
   };
 
   return (
-    <main>
-      <h3>Cloudflare SSE & EventSource</h3>
+    <>
       <button onClick={handleClick}>Run</button>
       <pre>{text}</pre>
-    </main>
+    </>
   );
-}
+};
