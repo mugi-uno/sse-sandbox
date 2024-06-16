@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import style from "./page.module.css";
 
 export default function CloudflarePage() {
   const [text, setText] = useState("");
@@ -32,9 +31,9 @@ export default function CloudflarePage() {
 
   return (
     <main>
-      <h3>Cloudflare & SSE</h3>
+      <h3>Cloudflare SSE & EventSource</h3>
       <button onClick={handleClick}>Run</button>
-      <pre className={style.text}>{text}</pre>
+      <pre>{text}</pre>
     </main>
   );
 }
