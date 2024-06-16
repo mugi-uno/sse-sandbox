@@ -34,4 +34,3 @@ jobs:
         with:
           project: "mugi-uno-sse-sandbox"
           entrypoint: "main.ts"
-          root: "./deno"
