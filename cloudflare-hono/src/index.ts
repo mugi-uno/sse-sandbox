@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { streamText } from "hono/streaming";
 
 const TEXT =
@@ -6,10 +7,11 @@ const TEXT =
 
 const app = new Hono();
 
+app.use("/*", cors());
+
 app.get("/sse", (c) => {
   return streamText(c, async (stream) => {
     c.header("Content-Type", "text/event-stream");
-    c.header("Access-Control-Allow-Origin", "*");
 
     let chunks = TEXT.split(" ");
 
@@ -29,7 +31,6 @@ app.get("/sse", (c) => {
 app.post("/sse-post", (c) => {
   return streamText(c, async (stream) => {
     c.header("Content-Type", "text/event-stream");
-    c.header("Access-Control-Allow-Origin", "*");
 
     let chunks = TEXT.split(" ");
 
