@@ -1,36 +1,26 @@
-"use client";
+import { View } from "./View";
 
-import { useRef, useState } from "react";
-
-export default function CloudflarePage() {
-  const [text, setText] = useState("");
-
-  const handleClick = async () => {
-    const res = await fetch("https://sse-sandbox.mugi-uno.workers.dev/");
-    const reader = res.body?.getReader()!;
-    const decoder = new TextDecoder();
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      if (!value) continue;
-
-      const lines = decoder.decode(value);
-      const [type, raw] = lines.trim().split(": ");
-
-      if (type === "data" && raw) {
-        setText((prevText) =>
-          prevText ? prevText + " " + raw : prevText + raw
-        );
-      }
-    }
-  };
-
+export default function Page() {
   return (
     <main>
-      <h3>Cloudflare SSE & fetch</h3>
-      <button onClick={handleClick}>Run</button>
-      <pre>{text}</pre>
+      <h3>Cloudflare Workers SSE & EventSource</h3>
+      <View url="https://sse-sandbox.mugi-uno.workers.dev/" />
+
+      <hr />
+
+      <h3>Cloudflare Workers SSE (Hono) & EventSource</h3>
+      <View url="https://sse-sandbox-hono.mugi-uno.workers.dev/sse" />
+
+      <hr />
+
+      <h3>Cloudflare Workers SSE (Hono) & EventSource & POST</h3>
+      <View url="https://sse-sandbox-hono.mugi-uno.workers.dev/sse-post" />
+
+      <hr />
+
+      <h3>Deno Deploy SSE & EventSource</h3>
+      <View url="https://mugi-uno-sse-sandbox.deno.dev/api/sse" />
+      <hr />
     </main>
   );
 }
