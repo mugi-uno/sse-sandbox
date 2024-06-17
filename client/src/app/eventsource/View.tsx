@@ -18,17 +18,10 @@ export const View = ({ url }: Props) => {
     eventSourceRef.current = eventSource;
 
     eventSource.onmessage = (event) => {
-      console.log("ON MESSAGE", event.data);
       setText((prevText) =>
         prevText ? prevText + " " + event.data : prevText + event.data
       );
     };
-
-    eventSource.addEventListener("close", () => {
-      console.log("CLOSE!!!!!!");
-      eventSource.close();
-      eventSourceRef.current = null;
-    });
   };
 
   return (
