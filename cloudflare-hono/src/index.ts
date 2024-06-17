@@ -26,4 +26,24 @@ app.get("/sse", (c) => {
   });
 });
 
+app.post("/sse-post", (c) => {
+  return streamText(c, async (stream) => {
+    c.header("Content-Type", "text/event-stream");
+    c.header("Access-Control-Allow-Origin", "*");
+
+    let chunks = TEXT.split(" ");
+
+    while (chunks.length > 0) {
+      const chunk = chunks.shift();
+      await stream.sleep(100);
+      await stream.writeln(`data: ${chunk}`);
+      await stream.writeln("");
+    }
+
+    await stream.writeln(`event: close`);
+    await stream.writeln(`data:`);
+    await stream.writeln("");
+  });
+});
+
 export default app;

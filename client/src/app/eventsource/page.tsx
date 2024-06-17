@@ -9,7 +9,7 @@ export default function Page() {
       <hr />
 
       <h3>Cloudflare Workers SSE (Hono) & EventSource</h3>
-      <View url="https://sse-sandbox-hono.mugi-uno.workers.dev/" />
+      <View url="https://sse-sandbox-hono.mugi-uno.workers.dev/sse" />
 
       <hr />
 
