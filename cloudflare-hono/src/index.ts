@@ -21,10 +21,6 @@ app.get("/sse", (c) => {
       await stream.writeln(`data: ${chunk}`);
       await stream.writeln("");
     }
-
-    await stream.writeln(`event: close`);
-    await stream.writeln(`data:`);
-    await stream.writeln("");
   });
 });
 
