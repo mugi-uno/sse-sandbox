@@ -9,6 +9,7 @@ const app = new Hono();
 app.get("/sse", (c) => {
   return streamText(c, async (stream) => {
     c.header("Content-Type", "text/event-stream");
+    c.header("Access-Control-Allow-Origin", "*");
 
     let chunks = TEXT.split(" ");
 
